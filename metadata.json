@@ -1,0 +1,5 @@
+{
+  "name": "DocuMind AI",
+  "description": "Intelligent document analysis and chat powered by Gemini 2.5 Flash. Upload PDFs, images, or text and chat instantly.",
+  "requestFramePermissions": []
+}
