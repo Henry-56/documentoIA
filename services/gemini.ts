@@ -2,7 +2,16 @@ import { GoogleGenAI } from "@google/genai";
 import { DocumentChunk } from "../types";
 import { db, findSimilarChunks } from "./db";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+// Validar API key antes de inicializar
+const apiKey = process.env.GEMINI_API_KEY;
+
+if (!apiKey || apiKey === 'your_api_key_here' || apiKey === '') {
+  console.error('⚠️ GEMINI_API_KEY no configurada correctamente');
+  console.error('Por favor, configure GEMINI_API_KEY en el archivo .env.local');
+  throw new Error('API Key de Gemini no encontrada. Configure GEMINI_API_KEY en las variables de entorno.');
+}
+
+const ai = new GoogleGenAI({ apiKey });
 
 // 1. Text Extraction & Summarization (Admin Side)
 // We use Gemini to read the file and give us clean text, regardless of format.
