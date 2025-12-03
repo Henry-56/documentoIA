@@ -118,13 +118,13 @@ export const AdminPanel: React.FC<{ onLogout: () => void }> = ({ onLogout }) => 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">Consola de Administración</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Panel de Administración</h1>
         <button onClick={onLogout} className="text-sm text-red-600 hover:text-red-800 font-medium">Cerrar Sesión</button>
       </div>
 
       {/* Upload Zone */}
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-        <h2 className="text-lg font-semibold mb-4">Ingestar Conocimiento</h2>
+        <h2 className="text-lg font-semibold mb-4">Ingestar información</h2>
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 flex flex-col items-center justify-center text-center hover:border-blue-500 transition-colors bg-gray-50">
           {isUploading ? (
             <div className="flex flex-col items-center">

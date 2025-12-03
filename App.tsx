@@ -114,7 +114,7 @@ const App: React.FC = () => {
 
   if (route === AppRoute.CLIENT_DASHBOARD && user?.role === Role.CLIENT) {
     return (
-      <Layout title="Espacio de Trabajo del Cliente">
+      <Layout title="Panel del cliente">
         <ClientChat user={user} onLogout={logout} />
       </Layout>
     );

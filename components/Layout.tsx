@@ -9,7 +9,7 @@ export const Layout: React.FC<{ children: React.ReactNode, title?: string }> = (
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center gap-2">
                 <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">AI</div>
-                <span className="font-bold text-gray-900 text-lg">BaseDeConocimiento</span>
+                <span className="font-bold text-gray-900 text-lg">IABOOT</span>
               </div>
               {title && (
                 <div className="hidden md:ml-6 md:flex md:space-x-8">

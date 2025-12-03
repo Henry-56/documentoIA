@@ -15,7 +15,8 @@ export const ClientChat: React.FC<{ user: User, onLogout: () => void }> = ({ use
     setMessages([{
       sessionId: 0,
       role: 'model',
-      content: `¡Hola ${user.name}! Tengo acceso a la base de conocimientos de la empresa. Pregúntame cualquier cosa sobre los documentos.`,
+      content: `Hola, ${user.name}. Soy tu asistente AI. ¿En qué puedo ayudarte hoy?`
+      ,
       timestamp: Date.now()
     }]);
   }, [user]);
@@ -75,7 +76,7 @@ export const ClientChat: React.FC<{ user: User, onLogout: () => void }> = ({ use
       <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="font-semibold text-gray-700">Asistente Empresarial</span>
+          <span className="font-semibold text-gray-700">Chat con tu asistente</span>
         </div>
         <button onClick={onLogout} className="text-xs text-gray-500 hover:text-gray-900 flex items-center gap-1">
           <LogOut size={14} /> Cerrar sesión
@@ -93,8 +94,8 @@ export const ClientChat: React.FC<{ user: User, onLogout: () => void }> = ({ use
 
               <div className="flex flex-col gap-1">
                 <div className={`p-4 rounded-2xl text-sm leading-relaxed shadow-sm ${msg.role === 'user'
-                    ? 'bg-blue-600 text-white rounded-tr-none'
-                    : 'bg-gray-100 text-gray-800 rounded-tl-none'
+                  ? 'bg-blue-600 text-white rounded-tr-none'
+                  : 'bg-gray-100 text-gray-800 rounded-tl-none'
                   }`}>
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
