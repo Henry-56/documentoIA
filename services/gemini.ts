@@ -5,17 +5,23 @@ import { db, findSimilarChunks } from "./db";
 // Validar API key antes de inicializar
 const apiKey = process.env.GEMINI_API_KEY;
 
-if (!apiKey || apiKey === 'your_api_key_here' || apiKey === '') {
-  console.error('⚠️ GEMINI_API_KEY no configurada correctamente');
-  console.error('Por favor, configure GEMINI_API_KEY en el archivo .env.local');
-  throw new Error('API Key de Gemini no encontrada. Configure GEMINI_API_KEY en las variables de entorno.');
-}
+let ai: GoogleGenAI | null = null;
 
-const ai = new GoogleGenAI({ apiKey });
+if (!apiKey || apiKey === 'your_api_key_here' || apiKey === '') {
+  console.warn('⚠️ GEMINI_API_KEY no configurada correctamente');
+  console.warn('La funcionalidad de AI estará deshabilitada hasta que configure una API key válida');
+  console.warn('Por favor, configure GEMINI_API_KEY en el archivo .env.local o en las variables de entorno de Vercel');
+} else {
+  ai = new GoogleGenAI({ apiKey });
+}
 
 // 1. Text Extraction & Summarization (Admin Side)
 // We use Gemini to read the file and give us clean text, regardless of format.
 export const processFileWithGemini = async (fileBase64: string, mimeType: string): Promise<string> => {
+  if (!ai) {
+    throw new Error('API Key de Gemini no configurada. Por favor, configure GEMINI_API_KEY en las variables de entorno.');
+  }
+
   const model = 'gemini-2.5-flash';
 
   try {
@@ -45,6 +51,10 @@ export const processFileWithGemini = async (fileBase64: string, mimeType: string
 
 // 2. Generate Embeddings (Vectorization)
 export const generateEmbedding = async (text: string): Promise<number[]> => {
+  if (!ai) {
+    throw new Error('API Key de Gemini no configurada. Por favor, configure GEMINI_API_KEY en las variables de entorno.');
+  }
+
   const model = 'text-embedding-004';
 
   // Note: embedContent uses 'contents' (plural) in the new SDK.
@@ -92,6 +102,13 @@ export const chatWithKnowledgeBase = async (query: string, history: { role: stri
   
   CONTEXT:
   ${contextText}`;
+
+  if (!ai) {
+    return {
+      response: "La funcionalidad de chat requiere configurar GEMINI_API_KEY. Por favor, contacte al administrador.",
+      sources: []
+    };
+  }
 
   try {
     const response = await ai.models.generateContent({
